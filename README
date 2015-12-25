@@ -6,9 +6,16 @@ The crucial file connections.txt represents locations thus:
 ID conn [conn [conn...]]
 
 Each connection consists of a type letter followed by the destination ID
-(numeric). Type letters are 'r'ailway, 'b'us, and 't'axi.
+(numeric). Type letters are 'r'ailway, 'b'us, and 't'axi. The ferry, being
+available only on a black ticket, is ignored for the purposes of this graph.
 
 Every connection should be referenced twice (for data integrity checking). The
 resulting map should be a non-directed graph.
 
 Connections should be grouped r,b,t and in ID order within each group.
+
+Stats ideas:
+* What's the best-connected location - that is, from here to anywhere on the
+  board is no more than X, lowest possible X?
+* Which location has the greatest number of modes and the fewest destinations?
+* Which two locations are topologically the furthest apart?
