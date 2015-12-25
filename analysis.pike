@@ -46,6 +46,7 @@ int main()
 		//to the same destination (usually bus and taxi). This may be of some interest.
 	}
 	//Step 3: Analysis!
+	int totscore=0;
 	foreach (SortIterator(destinations);int origin;multiset wavefront)
 	{
 		multiset seen=(<origin>);
@@ -62,9 +63,13 @@ int main()
 			if (!sizeof(nextfront)) break;
 			wavefront = nextfront;
 		}
+		totscore += score;
 		if (dist<=6)
 			write("%d: Max dist %d, tot score %d\n",origin,dist,score);
+		if (score<650)
+			write("%d: Tot score %d, max dist %d\n",origin,score,dist);
 		if (dist>9)
 			write("%d: Max distance %d to reach%{ %d%}\n",origin,dist,sort((array)wavefront));
 	}
+	write("Average score: %d\n",totscore/sizeof(destinations));
 }
