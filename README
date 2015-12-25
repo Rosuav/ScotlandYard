@@ -1,0 +1,12 @@
+Taking some notes on the board game "Scotland Yard", for analysis and distance
+mapping.
+
+The crucial file connections.txt represents locations thus:
+
+ID conn [conn [conn...]]
+
+Each connection consists of a type letter followed by the destination ID
+(numeric). Type letters are 'r'ailway, 'b'us, and 't'axi.
+
+Every connection should be referenced twice (for data integrity checking). The
+resulting map should be a non-directed graph.
