@@ -7,7 +7,8 @@ ID conn [conn [conn...]]
 
 Each connection consists of a type letter followed by the destination ID
 (numeric). Type letters are 'r'ailway, 'b'us, and 't'axi. The ferry, being
-available only on a black ticket, is ignored for the purposes of this graph.
+available only on a black ticket, is ignored for the purposes of this graph;
+if it is needed, its stops are (in sequence) 108-115-157-194.
 
 Every connection should be referenced twice (for data integrity checking). The
 resulting map should be a non-directed graph.
