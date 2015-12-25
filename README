@@ -19,3 +19,5 @@ Stats ideas:
   board is no more than X, lowest possible X?
 * Which location has the greatest number of modes and the fewest destinations?
 * Which two locations are topologically the furthest apart?
+* Which location is most central, based on average topological distance to all
+  other locations?
