@@ -47,18 +47,24 @@ int main()
 	}
 	//Step 3: Analysis!
 	int totscore=0;
+	mapping(int:mapping(int:int)) distance=([]); //For subsequent calculations: distance[x][y] is the minimum moves to get from x to y.
 	foreach (SortIterator(destinations);int origin;multiset wavefront)
 	{
 		multiset seen=(<origin>);
 		int dist=0; //Distance from origin to just before wavefront
 		int score=0;
+		mapping(int:int) dst=distance[origin]=([origin:0]);
 		while (sizeof(wavefront))
 		{
 			dist += 1;
 			score += dist * sizeof(wavefront);
 			seen |= wavefront;
 			multiset nextfront=(<>);
-			foreach (wavefront;int loc;) nextfront |= destinations[loc];
+			foreach (wavefront;int loc;)
+			{
+				nextfront |= destinations[loc];
+				dst[loc] = dist;
+			}
 			nextfront -= seen;
 			if (!sizeof(nextfront)) break;
 			wavefront = nextfront;
