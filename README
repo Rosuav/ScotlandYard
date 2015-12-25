@@ -10,3 +10,5 @@ Each connection consists of a type letter followed by the destination ID
 
 Every connection should be referenced twice (for data integrity checking). The
 resulting map should be a non-directed graph.
+
+Connections should be grouped r,b,t and in ID order within each group.
