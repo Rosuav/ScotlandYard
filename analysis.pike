@@ -92,7 +92,7 @@ int main()
 	//a negation of the 'scores' array instead.
 	array(int) detectives=allocate(5);
 	//array(int) detdist=({0})+allocate(max(@indices(distance)),1); //Flat start - promotes edge positions
-	array(int) detdist=max(@scores)-scores[*]; detdist[0]=0; //Weight toward centrality
+	array(int) detdist=max(@scores)+1-scores[*]; detdist[0]=0; //Weight toward centrality
 	foreach (detectives;int det;)
 	{
 		//Pick a location, using the detdist array as weights
