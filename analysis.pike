@@ -25,6 +25,27 @@ class SortIterator(mixed base, int|void valueorder)
 	this_program `+=(int steps) {pos += max(steps, -pos); return this;}
 }
 
+//Find the nth root of a huge number
+//Binary searches for the nearest integer between two guesses.
+int nthroot(int n,int root)
+{
+	int guess1=pow(2,n->size(2)/root),guess2=guess1*2;
+	while (1)
+	{
+		int mid=(guess1+guess2)/2;
+		if (mid==guess1)
+		{
+			//Endgame. We have two final guesses, one unit apart.
+			//Pick whichever is closer.
+			int comp1=abs(n-pow(guess1,root)),comp2=abs(n-pow(guess2,root));
+			return comp1<comp2 ? guess1 : guess2;
+		}
+		int compare=pow(mid,root);
+		//If our guess is too high, bring the top down, else bring the bottom up.
+		if (compare>n) guess2=mid; else guess1=mid;
+	}
+}
+
 int main()
 {
 	//Step 1: Parse the data file
@@ -78,7 +99,9 @@ int main()
 		if (dist>9)
 			write("%d: Max distance %d to reach%{ %d%}\n",origin,dist,sort((array)wavefront));
 	}
-	write("Average score: %d\n",totscore/sizeof(destinations));
+	write("Score distribution: %d-%d\n",min(@scores[1..]),max(@scores));
+	write("Arithmetic average: %d\n",totscore/sizeof(destinations));
+	write("Geometic average: %d\n",nthroot(`*(@scores[1..]),sizeof(destinations)));
 	//Now for some random fun. These are the starting tiles. How close together can you be?
 	array(int) starts=({34,13,29,91,94,53,26,50,155,141,197,103,174,112,138,132,117,198});
 	int closest=200;
