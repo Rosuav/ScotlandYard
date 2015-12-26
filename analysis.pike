@@ -48,6 +48,7 @@ int main()
 	//Step 3: Analysis!
 	int totscore=0;
 	mapping(int:mapping(int:int)) distance=([]); //For subsequent calculations: distance[x][y] is the minimum moves to get from x to y.
+	array(int) scores=({0})+allocate(max(@indices(destinations)));
 	foreach (SortIterator(destinations);int origin;multiset wavefront)
 	{
 		multiset seen=(<origin>);
@@ -69,7 +70,7 @@ int main()
 			if (!sizeof(nextfront)) break;
 			wavefront = nextfront;
 		}
-		totscore += score;
+		totscore += score; scores[origin] = score;
 		if (dist<=6)
 			write("%d: Max dist %d, tot score %d\n",origin,dist,score);
 		if (score<650)
@@ -86,8 +87,12 @@ int main()
 		if (distance[origin][dest]<3) write("Start locations %d and %d are only %d apart\n",origin,dest,distance[origin][dest]);
 	}
 	//Truly RANDOM random fun! Distribute five detectives around the board, maximizing distances.
+	//This tends to push detectives to the outside of the board. This isn't a huge problem (they
+	//can simply start moving to more central locations), but if that's undesirable, start with
+	//a negation of the 'scores' array instead.
 	array(int) detectives=allocate(5);
-	array(int) detdist=({0})+allocate(max(@indices(distance)),1);
+	//array(int) detdist=({0})+allocate(max(@indices(distance)),1); //Flat start - promotes edge positions
+	array(int) detdist=max(@scores)-scores[*]; detdist[0]=0; //Weight toward centrality
 	foreach (detectives;int det;)
 	{
 		//Pick a location, using the detdist array as weights
