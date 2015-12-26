@@ -79,11 +79,7 @@ int main()
 	}
 	write("Average score: %d\n",totscore/sizeof(destinations));
 	//Now for some random fun. These are the starting tiles. How close together can you be?
-	//NOTE: The last entry [188] is uncertain. The set I used for reference has this tile
-	//somewhat damaged. The last digit is clearly an 8, and it's three digits long; the
-	//possibilities are 108, 168, 188, and 198. The first two are topologically adjacent to
-	//other starts (91 and 197, respectively), while the other two are not.
-	array(int) starts=({34,13,29,91,94,53,26,50,155,141,197,103,174,112,138,132,117,188});
+	array(int) starts=({34,13,29,91,94,53,26,50,155,141,197,103,174,112,138,132,117,198});
 	int closest=200;
 	foreach (starts,int origin) foreach (starts,int dest) if (origin<dest)
 	{
