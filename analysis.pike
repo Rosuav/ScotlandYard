@@ -78,4 +78,32 @@ int main()
 			write("%d: Max distance %d to reach%{ %d%}\n",origin,dist,sort((array)wavefront));
 	}
 	write("Average score: %d\n",totscore/sizeof(destinations));
+	//Now for some random fun. These are the starting tiles. How close together can you be?
+	//NOTE: The last entry [188] is uncertain. The set I used for reference has this tile
+	//somewhat damaged. The last digit is clearly an 8, and it's three digits long; the
+	//possibilities are 108, 168, 188, and 198. The first two are topologically adjacent to
+	//other starts (91 and 197, respectively), while the other two are not.
+	array(int) starts=({34,13,29,91,94,53,26,50,155,141,197,103,174,112,138,132,117,188});
+	int closest=200;
+	foreach (starts,int origin) foreach (starts,int dest) if (origin<dest)
+	{
+		if (distance[origin][dest]<3) write("Start locations %d and %d are only %d apart\n",origin,dest,distance[origin][dest]);
+	}
+	//Truly RANDOM random fun! Distribute five detectives around the board, maximizing distances.
+	array(int) detectives=allocate(5);
+	array(int) detdist=({0})+allocate(max(@indices(distance)),1);
+	foreach (detectives;int det;)
+	{
+		//Pick a location, using the detdist array as weights
+		int rnd=random(Array.sum(detdist));
+		foreach (detdist;int pos;int prob) if ((rnd-=prob)<0) {detectives[det]=pos; break;}
+		write("Place detective #%d at %d.\n",det+1,detectives[det]);
+		//Multiply each location's weight by the distance from it to the new detective.
+		//Effectively, the weight of a location is the product of the distances to each
+		//detective. Ergo there is zero probability of a collision (because its distance
+		//to the previous one is 0), and far FAR higher chance of getting something a
+		//long way from anything than of something close to several others (4*4*4 is way
+		//higher than 9*2*1).
+		foreach (distance[detectives[det]];int pos;int dist) detdist[pos]*=dist;
+	}
 }
